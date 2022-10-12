@@ -1,8 +1,7 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class UITextBarController: MonoBehaviour
+public class UITextBarController : MonoBehaviour
 {
     [SerializeField] private TMP_InputField _timeTextBar;
     [SerializeField] private TMP_InputField _speedTextBar;

@@ -18,6 +18,7 @@ public class MoveCubController : MonoBehaviour
         _inputSpeed = GetComponent<IGetSpeed>();
         _cubeCreater = FindObjectOfType<CubeLiveController>();
     }
+
     public void StartMove()
     {
         _liveTime = _inputTime.Time;
