@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CubeLiveController : MonoBehaviour, ICubeDestroer, ICubeCreater
+public class CubeLiveController : MonoBehaviour
 {
     [SerializeField] private GameObject _cubePrefab;
     [SerializeField] private Transform _cubeSpawnPosition;
