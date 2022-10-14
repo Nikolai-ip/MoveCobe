@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,22 +8,21 @@ public class MoveCubController : MonoBehaviour
     private IGetSpeed _inputSpeed;
     private Vector3 _direction = Vector3.right;
     private Transform _cubeTr;
-    private ICubeCreater _cubeCreater;
+    public event Action<GameObject> destroyCube = delegate { };
     private float _liveTime;
-    private float _speed;
+    private float speed;
 
     private void Start()
     {
         _cubeTr = GetComponent<Transform>();
         _inputTime = GetComponent<IGetTime>();
         _inputSpeed = GetComponent<IGetSpeed>();
-        _cubeCreater = FindObjectOfType<CubeLiveController>();
+        destroyCube += FindObjectOfType<CubeLiveController>().DestroyCube;
     }
-
     public void StartMove()
     {
         _liveTime = _inputTime.Time;
-        _speed = _inputSpeed.Speed;
+        speed = _inputSpeed.Speed;
         StartCoroutine("Move");
     }
 
@@ -31,15 +31,10 @@ public class MoveCubController : MonoBehaviour
         float time = 0;
         while (time < _liveTime)
         {
-            _cubeTr.position += _direction * _speed * Time.deltaTime;
+            _cubeTr.position += _direction * speed * Time.deltaTime;
             time += Time.deltaTime;
             yield return null;
         }
-        Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
-        _cubeCreater?.CreateNewCube();
+        destroyCube(gameObject);
     }
 }

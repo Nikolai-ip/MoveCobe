@@ -12,11 +12,12 @@ public class CubeLiveController : MonoBehaviour, ICubeDestroer, ICubeCreater
 
     public void CreateNewCube()
     {
-        if (GameObject.FindGameObjectWithTag("Cube") == null)
-        {
-            var cube = Instantiate(_cubePrefab, _cubeSpawnPosition.localPosition, new Quaternion());
-        }
+        var cube = Instantiate(_cubePrefab, _cubeSpawnPosition.localPosition, new Quaternion());
     }
 
-    public void DestroyCube(GameObject cub) => Destroy(cub);
+    public void DestroyCube(GameObject cub)
+    {
+        Destroy(cub);
+        CreateNewCube();
+    }
 }
